@@ -1,11 +1,62 @@
-import React from 'react';
+import React, { FocusEvent, useState } from 'react';
 import './Paper.css';
 
 function Paper() {
+  const titlePlaceholder = 'Add your title here';
+  const textPlaceholder = 'Add your text here';
+  const [title, setTitle] = useState(titlePlaceholder);
+  const [text, setText] = useState(textPlaceholder);
+
+  const titleClassName = title === titlePlaceholder ? 'placeholder' : ''
+  const textClassName = text === textPlaceholder ? 'placeholder' : ''
+
+  const removeTitlePlaceholder = () => {
+    if (title === titlePlaceholder) {
+      setTitle('');
+    }
+  }
+
+  const addTitlePlaceholderIfEmpty = (e: FocusEvent<HTMLHeadingElement>) => {
+    const content = e.currentTarget.innerText;
+    if (content) {
+      setTitle(content);
+    } else {
+      setTitle(titlePlaceholder);
+    } 
+  }
+  const removeTextPlaceholder = () => {
+    if (text === textPlaceholder) {
+      setText('');
+    }
+  }
+
+  const addTextPlaceholderIfEmpty = (e: FocusEvent<HTMLParagraphElement>) => {
+    const content = e.currentTarget.innerText;
+    if (content) {
+      setText(content);
+    } else {
+      setText(textPlaceholder);
+    } 
+  }
+
   return (
     <div className="paper">
-      <h1 contentEditable="true">Add your title here</h1>
-      <p contentEditable="true">Add your text here</p>
+      <h1 
+        className={titleClassName} 
+        contentEditable="true" 
+        onFocus={removeTitlePlaceholder} 
+        onBlur={addTitlePlaceholderIfEmpty}
+      >
+        {title}
+      </h1> 
+      <p 
+        className={textClassName}
+        contentEditable="true"
+        onFocus={removeTextPlaceholder}
+        onBlur={addTextPlaceholderIfEmpty}
+      >
+        {text}
+      </p>
     </div>
   );
 }
