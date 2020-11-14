@@ -17,7 +17,7 @@ function Paper() {
   }
 
   const addTitlePlaceholderIfEmpty = (e: FocusEvent<HTMLHeadingElement>) => {
-    const content = e.currentTarget.innerText;
+    const content = e.currentTarget.innerHTML;
     if (content) {
       setTitle(content);
     } else {
@@ -31,7 +31,7 @@ function Paper() {
   }
 
   const addTextPlaceholderIfEmpty = (e: FocusEvent<HTMLParagraphElement>) => {
-    const content = e.currentTarget.innerText;
+    const content = e.currentTarget.innerHTML;
     if (content) {
       setText(content);
     } else {
@@ -46,16 +46,16 @@ function Paper() {
         contentEditable="true" 
         onFocus={removeTitlePlaceholder} 
         onBlur={addTitlePlaceholderIfEmpty}
+        dangerouslySetInnerHTML={{ __html: title }}
       >
-        {title}
       </h1> 
       <p 
         className={textClassName}
         contentEditable="true"
         onFocus={removeTextPlaceholder}
         onBlur={addTextPlaceholderIfEmpty}
+        dangerouslySetInnerHTML={{ __html: text }}
       >
-        {text}
       </p>
     </div>
   );
