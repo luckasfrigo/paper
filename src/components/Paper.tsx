@@ -1,4 +1,4 @@
-import React, { FocusEvent, useState } from 'react';
+import React, { DragEvent, FocusEvent, useState } from 'react';
 import './Paper.css';
 
 function Paper() {
@@ -38,25 +38,33 @@ function Paper() {
       setText(textPlaceholder);
     } 
   }
+  
+  const drop = (e: DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    const data = e.dataTransfer.getData("assetId");
+    console.log(e);
+  }
+
+  const allowDrop = (e: DragEvent) => {
+    e.preventDefault();
+  }
 
   return (
-    <div className="paper">
-      <h1 
-        className={titleClassName} 
-        contentEditable="true" 
-        onFocus={removeTitlePlaceholder} 
+    <div className="paper" onDrop={drop} onDragOver={allowDrop}>
+      <h1
+        className={titleClassName}
+        contentEditable="true"
+        onFocus={removeTitlePlaceholder}
         onBlur={addTitlePlaceholderIfEmpty}
         dangerouslySetInnerHTML={{ __html: title }}
-      >
-      </h1> 
-      <p 
+      ></h1>
+      <p
         className={textClassName}
         contentEditable="true"
         onFocus={removeTextPlaceholder}
         onBlur={addTextPlaceholderIfEmpty}
         dangerouslySetInnerHTML={{ __html: text }}
-      >
-      </p>
+      ></p>
     </div>
   );
 }
