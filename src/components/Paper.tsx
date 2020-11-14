@@ -1,4 +1,5 @@
 import React, { DragEvent, FocusEvent, useState } from 'react';
+import { AssetInstance } from '../common/types';
 import './Paper.css';
 
 function Paper() {
@@ -6,6 +7,7 @@ function Paper() {
   const textPlaceholder = 'Add your text here';
   const [title, setTitle] = useState(titlePlaceholder);
   const [text, setText] = useState(textPlaceholder);
+  const [assetInstanceList, setAssetInstanceList] = useState<AssetInstance[]>([]);
 
   const titleClassName = title === titlePlaceholder ? 'placeholder' : ''
   const textClassName = text === textPlaceholder ? 'placeholder' : ''
@@ -41,8 +43,21 @@ function Paper() {
   
   const drop = (e: DragEvent<HTMLDivElement>) => {
     e.preventDefault();
-    const data = e.dataTransfer.getData("assetId");
-    console.log(e);
+    const asset = JSON.parse(e.dataTransfer.getData("asset"));
+    const pageRect = e.currentTarget.getBoundingClientRect();
+    const newAssetInstance = {
+      id: `${asset.id}${Date.now()}`,
+      src: asset.src,
+      name: `${asset.id}_${assetInstanceList.length}`,
+      x: e.pageX - pageRect.x - asset.mouseOffset.x,
+      y: e.pageY - pageRect.y - asset.mouseOffset.y,
+      width: 120,
+      height: 120
+    };
+    setAssetInstanceList([
+      ...assetInstanceList,
+      newAssetInstance
+    ]);
   }
 
   const allowDrop = (e: DragEvent) => {
@@ -65,6 +80,21 @@ function Paper() {
         onBlur={addTextPlaceholderIfEmpty}
         dangerouslySetInnerHTML={{ __html: text }}
       ></p>
+      { assetInstanceList.map((instance) => {
+        return (
+          <img
+            key={instance.name}
+            src={instance.src}
+            className="instance"
+            style={{  
+              left: instance.x,
+              top: instance.y,
+              width: instance.width,
+              height: instance.height,
+            }}
+          />
+        );  
+      })}
     </div>
   );
 }

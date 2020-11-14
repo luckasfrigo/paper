@@ -6,20 +6,28 @@ import './AssetLib.css';
   
 function AssetLib() {
   const startDrag = (e: DragEvent<HTMLImageElement>) => {
-    e.dataTransfer.setData("assetId", e.currentTarget.id);
+    const assetRect = e.currentTarget.getBoundingClientRect();
+    e.dataTransfer.setData(
+      "asset",
+      JSON.stringify({
+        id: e.currentTarget.id,
+        src: e.currentTarget.src,
+        mouseOffset: { x: e.pageX - assetRect.x, y: e.pageY - assetRect.y },
+      })
+    );
   }
 
   return (
     <div className="assetlib">
       <div className="assetlist">
-        <img
-          id="energyshield"
-          alt="A shield with a thunderbolt"
-          src={energyshield}
-          className="asset"
-          draggable="true"
-          onDragStart={startDrag}
-        />
+          <img
+            id="energyshield"
+            alt="A shield with a thunderbolt"
+            src={energyshield}
+            className="asset"
+            draggable="true"
+            onDragStart={startDrag}
+          />
         <img
           id="imageshield"
           alt="A shield from a png file"

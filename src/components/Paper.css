@@ -1,4 +1,5 @@
 .paper {
+  position: relative;
   width: 210mm;
   height: 297mm;
   top: 20px;
@@ -12,4 +13,8 @@
 
 .placeholder {
   color: #888888;
+}
+
+.instance {
+  position: absolute;
 }
