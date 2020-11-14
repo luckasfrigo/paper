@@ -2,21 +2,27 @@ import React, { DragEvent, FocusEvent, useState } from 'react';
 import { AssetInstance } from '../common/types';
 import './Paper.css';
 
-function Paper() {
-  const titlePlaceholder = 'Add your title here';
-  const textPlaceholder = 'Add your text here';
+interface Props {
+  onInstanceSelection(arg0: AssetInstance|undefined): void;
+}
+
+function Paper({ onInstanceSelection }: Props) {
+  const titlePlaceholder = "Add your title here";
+  const textPlaceholder = "Add your text here";
   const [title, setTitle] = useState(titlePlaceholder);
   const [text, setText] = useState(textPlaceholder);
-  const [assetInstanceList, setAssetInstanceList] = useState<AssetInstance[]>([]);
+  const [assetInstanceList, setAssetInstanceList] = useState<AssetInstance[]>(
+    []
+  );
 
-  const titleClassName = title === titlePlaceholder ? 'placeholder' : ''
-  const textClassName = text === textPlaceholder ? 'placeholder' : ''
+  const titleClassName = title === titlePlaceholder ? "placeholder" : "";
+  const textClassName = text === textPlaceholder ? "placeholder" : "";
 
   const removeTitlePlaceholder = () => {
     if (title === titlePlaceholder) {
-      setTitle('');
+      setTitle("");
     }
-  }
+  };
 
   const addTitlePlaceholderIfEmpty = (e: FocusEvent<HTMLHeadingElement>) => {
     const content = e.currentTarget.innerHTML;
@@ -24,13 +30,13 @@ function Paper() {
       setTitle(content);
     } else {
       setTitle(titlePlaceholder);
-    } 
-  }
+    }
+  };
   const removeTextPlaceholder = () => {
     if (text === textPlaceholder) {
-      setText('');
+      setText("");
     }
-  }
+  };
 
   const addTextPlaceholderIfEmpty = (e: FocusEvent<HTMLParagraphElement>) => {
     const content = e.currentTarget.innerHTML;
@@ -38,9 +44,9 @@ function Paper() {
       setText(content);
     } else {
       setText(textPlaceholder);
-    } 
-  }
-  
+    }
+  };
+
   const drop = (e: DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     const asset = JSON.parse(e.dataTransfer.getData("asset"));
@@ -52,17 +58,14 @@ function Paper() {
       x: e.pageX - pageRect.x - asset.mouseOffset.x,
       y: e.pageY - pageRect.y - asset.mouseOffset.y,
       width: 120,
-      height: 120
+      height: 120,
     };
-    setAssetInstanceList([
-      ...assetInstanceList,
-      newAssetInstance
-    ]);
-  }
+    setAssetInstanceList([...assetInstanceList, newAssetInstance]);
+  };
 
   const allowDrop = (e: DragEvent) => {
     e.preventDefault();
-  }
+  };
 
   return (
     <div className="paper" onDrop={drop} onDragOver={allowDrop}>
@@ -72,6 +75,7 @@ function Paper() {
         onFocus={removeTitlePlaceholder}
         onBlur={addTitlePlaceholderIfEmpty}
         dangerouslySetInnerHTML={{ __html: title }}
+        onClick={() => onInstanceSelection(undefined)}
       ></h1>
       <p
         className={textClassName}
@@ -79,21 +83,24 @@ function Paper() {
         onFocus={removeTextPlaceholder}
         onBlur={addTextPlaceholderIfEmpty}
         dangerouslySetInnerHTML={{ __html: text }}
+        onClick={() => onInstanceSelection(undefined)}
       ></p>
-      { assetInstanceList.map(instance => {
+      {assetInstanceList.map((instance) => {
         return (
           <img
             key={instance.name}
             src={instance.src}
             className="instance"
-            style={{  
+            style={{
               left: instance.x,
               top: instance.y,
               width: instance.width,
               height: instance.height,
             }}
+            contentEditable="true"
+            onClick={() => onInstanceSelection(instance)}
           />
-        );  
+        );
       })}
     </div>
   );
