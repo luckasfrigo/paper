@@ -80,7 +80,7 @@ function Paper() {
         onBlur={addTextPlaceholderIfEmpty}
         dangerouslySetInnerHTML={{ __html: text }}
       ></p>
-      { assetInstanceList.map((instance) => {
+      { assetInstanceList.map(instance => {
         return (
           <img
             key={instance.name}
