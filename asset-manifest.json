@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/paper/static/css/main.4f12b500.chunk.css",
+    "main.js": "/paper/static/js/main.9ecc4c36.chunk.js",
+    "main.js.map": "/paper/static/js/main.9ecc4c36.chunk.js.map",
+    "runtime-main.js": "/paper/static/js/runtime-main.44af5f1f.js",
+    "runtime-main.js.map": "/paper/static/js/runtime-main.44af5f1f.js.map",
+    "static/js/2.f0467af4.chunk.js": "/paper/static/js/2.f0467af4.chunk.js",
+    "static/js/2.f0467af4.chunk.js.map": "/paper/static/js/2.f0467af4.chunk.js.map",
+    "static/js/3.cc824ae8.chunk.js": "/paper/static/js/3.cc824ae8.chunk.js",
+    "static/js/3.cc824ae8.chunk.js.map": "/paper/static/js/3.cc824ae8.chunk.js.map",
+    "index.html": "/paper/index.html",
+    "static/css/main.4f12b500.chunk.css.map": "/paper/static/css/main.4f12b500.chunk.css.map",
+    "static/js/2.f0467af4.chunk.js.LICENSE.txt": "/paper/static/js/2.f0467af4.chunk.js.LICENSE.txt",
+    "static/media/energyshield.bce9f0c3.svg": "/paper/static/media/energyshield.bce9f0c3.svg",
+    "static/media/imageshield.e2257e67.png": "/paper/static/media/imageshield.e2257e67.png",
+    "static/media/lineshield.bdc375ad.svg": "/paper/static/media/lineshield.bdc375ad.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.44af5f1f.js",
+    "static/js/2.f0467af4.chunk.js",
+    "static/css/main.4f12b500.chunk.css",
+    "static/js/main.9ecc4c36.chunk.js"
+  ]
+}
